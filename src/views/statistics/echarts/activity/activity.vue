@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <datePicker/> 
+    <datePicker/>
     <el-row :gutter="24" class="el-row">
       <el-col :span="24" class="el-card" align="center">
         <div class="grid-content bg-purple">
@@ -8,9 +8,9 @@
         </div>
       </el-col>
     </el-row>
- 
+
     <el-row :gutter="24" class="el-row">
- 
+
       <el-col :span="24" class="el-card" align="center">
          <div class="grid-content bg-purple">
                <couponTable ref="couponTable"/>
@@ -24,17 +24,17 @@
 import activityTable from '@/views/statistics/echarts/activity/activityTable'
 import couponTable from '@/views/statistics/echarts/activity/couponTable'
 import datePicker from '@/views/statistics/echarts/datePicker'
- 
- 
+
+
 
 export default {
   // 注册组件
   components: {
-   activityTable,couponTable ,datePicker
+   activityTable
   },
   data () {
       return {
-        curDate: new Date().toISOString().substring(0, 10) 
+        curDate: new Date().toISOString().substring(0, 10)
       }
   },
   methods:{

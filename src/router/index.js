@@ -118,10 +118,16 @@ export const constantRouterMap = [
         meta: { title: '订单统计' }
       },
       {
-        path: 'echarts/activity',
+        path: 'echarts/activityTable',
         name: '活动分析',
-        component: () => import('@/views/statistics/echarts/activity/activity'),
+        component: () => import('@/views/statistics/echarts/activity/activityTable'),
         meta: { title: '活动分析' }
+      },
+      {
+        path: 'echarts/couponTable',
+        name: '优惠券分析',
+        component: () => import('@/views/statistics/echarts/activity/couponTable'),
+        meta: { title: '优惠券分析' }
       },
       {
         path: 'echarts/orderuser',
