@@ -6,7 +6,7 @@
         <el-row :gutter="24" class="el-row">
         <el-form :inline="true"   class="demo-form-inline">
           <el-form-item label="活动时间" >
-            <el-date-picker v-model="selectDay" type="date" placeholder="选择日期" @change="dataSearch" value-format="yyyy-MM-dd"></el-date-picker>
+            <el-date-picker v-model="startDate" type="date" placeholder="选择日期" @change="dataSearch" value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
           <el-form-item label="活动名称" >
             <el-select v-model="query.activityName" placeholder="请选择" class="dialog-input">
@@ -37,6 +37,10 @@
         label="活动开始时间"   >
       </el-table-column>
       <el-table-column
+        prop="dt"
+        label="统计时间"   >
+      </el-table-column>
+      <el-table-column
         prop="reduce_rate"
         label="补贴率(%)"  width="200"  :formatter="formatRate">
       </el-table-column>
@@ -63,11 +67,11 @@ const now = parseTime(new Date(new Date().getTime()), '{y}-{m}-{d}')
 export default {
   data() {
     return {
-      selectDay:new Date(),
+      startDate:new Date(),
       activityName:'',
       activeNameOptions:[],
       query:{
-        selectDay:now,
+        startDate:now,
         activityName :""
       },
       total: null,
@@ -92,7 +96,7 @@ export default {
        his.getActivityList();
      },
      dataSearch() {
-       this.query.selectDay = this.selectDay
+       this.query.startDate = this.startDate
        this.getActivityName()
 
      },
@@ -102,12 +106,12 @@ export default {
        var monthn = now.getMonth()+1;
        var yearn  = now.getFullYear();
        var dayn = now.getDate();
-       this.selectDay = yearn+"-"+monthn+"-"+dayn;
+       this.startDate = yearn+"-"+monthn+"-"+dayn;
 
        this.getActivityName();
      },
      async getActivityName(data) {
-       api.getActivityNameByDt(this.query).then(response => {
+       api.getActivityNameByStartDate(this.query).then(response => {
          console.log("-----"+response)
          this.activeNameOptions = response;
          console.log(this.activeNameOptions)
@@ -126,7 +130,7 @@ export default {
          }
        }
        this.query.pageNo = p
-       this.getList()
+       this.getActivityList()
      },
 
      formatRate(row,col,value,index){
