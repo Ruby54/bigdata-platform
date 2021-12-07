@@ -23,7 +23,20 @@
           <div style="font-size:40px;text-align:center" >{{orderUser}}<span style="font-size:20px">人</span></div>
         </div>
       </el-col>
-
+     <el-col :span="12" class="el-card">
+       <div class="grid-content bg-purple">
+         <div style="font-size:18px;color:grey ">{{dateRange}}退单数  </div>
+         <br>
+         <div style="font-size:40px;text-align:center" >{{orderRefundCount}}<span style="font-size:20px">笔</span></div>
+       </div>
+     </el-col>
+     <el-col :span="12" class="el-card">
+       <div class="grid-content bg-purple">
+         <div style="font-size:18px;color:grey ">{{dateRange}}退单人数  </div>
+         <br>
+         <div style="font-size:40px;text-align:center" >{{orderRefundUserCount}}<span style="font-size:20px">人</span></div>
+       </div>
+     </el-col>
 
    </el-row>
 
@@ -33,7 +46,8 @@
 
 
 <script>
-import api from '@/api/statistics/api'
+import api from '@/api/order/order'
+
 export default {
   data() {
     return {
@@ -41,7 +55,9 @@ export default {
        dateRange: this.$parent.dateRange,
        orderCount:0,
        orderAmount:0.00,
-       orderUser:0
+       orderUser:0,
+       orderRefundCount:0,
+       orderRefundUserCount:0
 
     }
   },
@@ -60,11 +76,13 @@ export default {
     // 加载banner列表数据
     init() {
       this. getParent()
-      api.getOrderTotalData(this.recentDays,this.curDate).then(response => {
-       if(response.orderCount){
-            this.orderCount = response.orderCount
-            this.orderAmount = response.orderAmount
-            this.orderUser = response.orderUser
+      api.getTradeByDaysAndDt(this.recentDays,this.curDate).then(response => {
+       if(response.status == 200){
+            this.orderCount = response.result.order_count
+            this.orderAmount = response.result.order_total_amount
+            this.orderUser = response.result.order_user_count
+            this.orderRefundCount = response.result.order_refund_count
+            this.orderRefundUserCount = response.result.order_refund_user_count
          }
       }).catch( response => {
           console.log('失败'+response)
