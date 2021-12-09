@@ -20,9 +20,9 @@ export default {
 
   data () {
     return {
-      recentDays:this.$parent.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.$parent.dateRange,
-      curDate: this.$parent.$parent.$parent.$parent.curDate,
+      recentDays:this.$parent.recentDays,
+      dateRange: this.$parent.dateRange,
+      curDate: this.$parent.curDate,
       showNum:7,
       xData:[7,14,16],
       yData:['花王婴儿纸尿裤','欧莱雅面膜' ,'农家新语奶油草莓' ],
@@ -33,9 +33,9 @@ export default {
 
   methods: {
      getParent(){
-       this.recentDays=this.$parent.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.$parent.dateRange ,
-        this.curDate=this.$parent.$parent.$parent.$parent.curDate 
+       this.recentDays=this.$parent.recentDays,
+       this.dateRange=this.$parent.dateRange ,
+        this.curDate=this.$parent.curDate
     },
     initData(xData ){
         if( xData&&xData.length>0){
