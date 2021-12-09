@@ -33,6 +33,7 @@
       </el-row>
     </div>
     <orderTotal ref="orderTotal"/>
+
     <orderProvince ref="orderProvince"/>
   </div>
 </template>
@@ -68,7 +69,7 @@ export default {
     },
     dateChange(){
       this.setParent();
-      this.$parent.refresh();
+      this.refresh();
     },
 
 

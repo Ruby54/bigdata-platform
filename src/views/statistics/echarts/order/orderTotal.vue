@@ -53,6 +53,7 @@ export default {
     return {
        recentDays:this.$parent.recentDays,
        dateRange: this.$parent.dateRange,
+       curDate:this.$parent.curDate,
        orderCount:0,
        orderAmount:0.00,
        orderUser:0,
@@ -63,7 +64,6 @@ export default {
   },
 
    mounted() {
-
     this.init()
   } ,
    methods: {
@@ -75,9 +75,9 @@ export default {
 
     // 加载banner列表数据
     init() {
-      this. getParent()
+      this.getParent()
       api.getTradeByDaysAndDt(this.recentDays,this.curDate).then(response => {
-       if(response.status == 200){
+       if(response.status == 200&&response.result!=null){
             this.orderCount = response.result.order_count
             this.orderAmount = response.result.order_total_amount
             this.orderUser = response.result.order_user_count

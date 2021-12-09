@@ -9,9 +9,9 @@ export default {
       timeout: 10000
     })
   },
-  getOrderProvinceData(recentDays,curDate) {
+  getOrderProvinceData(recentDays,curDate,orderSelect) {
     return request({
-      url: `http://localhost:8081/statistics/getOrderProvinceData?days=${recentDays}&dt=${curDate}`,
+      url: `http://localhost:8081/statistics/getOrderProvinceData?days=${recentDays}&dt=${curDate}&orderSelect=${orderSelect}`,
       method: 'get',
       timeout: 10000
     })

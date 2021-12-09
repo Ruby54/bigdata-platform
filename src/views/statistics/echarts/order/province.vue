@@ -1,9 +1,14 @@
 <template>
   <el-row :gutter="24" class="el-row">
     <el-col :span="24" class="el-card">
-      <div></div>
        <div id="mapChart" style="width: 100%; height: 400px" />
     </el-col>
+    <!--<el-col :span="12" class="el-card">-->
+      <!--查询条件：<el-select v-model="orderSelect" placeholder="请选择" class="dialog-input">-->
+      <!--<el-option v-for="item in orderOptions" :key="item.key" :label="item.label" :value="item.value"/>-->
+    <!--</el-select>-->
+
+    <!--</el-col>-->
   </el-row>
 </template>
 
@@ -26,7 +31,12 @@
         curDate: this.$parent.curDate,
         areaData: [],
         min:0,
-        max:0
+        max:0,
+        orderSelect:'订单数',
+        orderOptions: [
+          {key: 1, label: '订单数', value: '订单数'},
+          {key: 2, label: '订单金额', value: '订单金额'}
+        ],
       };
     },
 
@@ -36,6 +46,7 @@
         this.curDate=this.$parent.curDate,
           this.recentDays=this.$parent.recentDays,
           this.dateRange=this.$parent.dateRange
+
       },
       initData(areaData ){
         if( areaData&&areaData.length>0){
@@ -48,9 +59,12 @@
 
       init() {
         this.getParent()
+        this.orderSelect=this.orderSelect
         console.log("super days:"+ this.recentDays);
-        api.getOrderProvinceData(this.recentDays,this.curDate).then(response => {
-          this.areaData = response.result
+        api.getOrderProvinceData(this.recentDays,this.curDate,this.orderSelect).then(response => {
+          if(response.result.length>0){
+            this.areaData = response.result
+          }
           this.initData(this.areaData )
           console.log("area:"+response)
           this.setChartData();
@@ -77,9 +91,9 @@
           echarts.registerMap("CHN", this.mapJson);
           const option = {
             title: {
-              text: "全国下单数分布",
+              text: "各省份"+this.orderSelect+"交易统计",
               subtext: this.dateRange,
-              left: "left",
+              left: "center",
             },
             tooltip: {
               trigger: "item",
@@ -114,7 +128,7 @@
             },
             series: [
               {
-                name: "下单数",
+                name: this.orderSelect,
                 type: "map",
                 roam: true,
                 map: "CHN",
