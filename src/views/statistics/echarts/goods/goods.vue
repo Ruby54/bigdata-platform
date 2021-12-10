@@ -32,66 +32,71 @@
         </el-col>
       </el-row>
     </div>
-    <orderTotal ref="orderTotal"/>
+    <tmRepeat ref="tmRepeat"/>
+    <categorySunbrust ref="categorySunbrust"/>
 
-    <orderProvince ref="orderProvince"/>
+    <tmTopN ref="tmTopN"/>
+    <tmTradeStats ref="tmTradeStats"/>
   </div>
 </template>
 
 <script>
-import orderProvince from '@/views/statistics/echarts/order/province'
-import orderTotal from '@/views/statistics/echarts/order/orderTotal'
+  import tmRepeat from '@/views/statistics/echarts/goods/tmRepeat'
+  import categorySunbrust from '@/views/statistics/echarts/goods/categorySunbrust'
+  import tmTopN from '@/views/statistics/echarts/goods/tmTopN'
+  import tmTradeStats from '@/views/statistics/echarts/goods/tmTradeStats'
 
 
-export default {
-  // 注册组件
-  components: {
-    orderTotal,orderProvince
-  },
-  data () {
+  export default {
+    // 注册组件
+    components: {
+      tmRepeat,categorySunbrust,tmTopN,tmTradeStats
+    },
+    data () {
       return {
         recentDays:7,
         dateRange:"近7日",
         curDate: new Date().toISOString().substring(0, 10),
       }
-  },
-  mounted() {
-    this.setParent();
-  },
-  methods:{
-    // 加载banner列表数据
-    setParent() {
-      this.$parent.curDate = this.curDate;
-      this.$parent.recentDays = this.recentDays;
-      this.$parent.dateRange = this.dateRange;
     },
-    dateChange(){
+    mounted() {
       this.setParent();
-      this.refresh();
     },
+    methods:{
+      // 加载banner列表数据
+      setParent() {
+        this.$parent.curDate = this.curDate;
+        this.$parent.recentDays = this.recentDays;
+        this.$parent.dateRange = this.dateRange;
+      },
+      dateChange(){
+        this.setParent();
+        this.refresh();
+      },
 
 
-    radioChange() {
-      // debugger
-      if (this.dateRange == "近30日") {
-        this.recentDays = 30;
-      } else if (this.dateRange == "近7日") {
-        this.recentDays = 7;
-      } else if (this.dateRange == "昨日") {
-        this.recentDays = 1;
+      radioChange() {
+        // debugger
+        if (this.dateRange == "近30日") {
+          this.recentDays = 30;
+        } else if (this.dateRange == "近7日") {
+          this.recentDays = 7;
+        } else if (this.dateRange == "昨日") {
+          this.recentDays = 1;
+        }
+        this.setParent();
+        this.refresh();
+      },
+      refresh(){
+        this.$refs.tmRepeat.init()
+        this.$refs.categorySunbrust.init()
+        this.$refs.tmTopN.init()
+
+
       }
-      this.setParent();
-      this.refresh();
-    },
-    refresh(){
-         this.$refs.orderProvince.init()
-         this.$refs.orderTotal.init()
 
 
-      }
-
-
+    }
   }
-}
 </script>
 

@@ -1,15 +1,17 @@
 <template>
- 
+  <el-row :gutter="24" class="el-row">
+    <el-col :span="24" class="el-card">
  
       <div id="tmRepeatChart" style="width:100%;height:340px;" />
  
- 
+    </el-col>
+  </el-row>
 </template>
 
 
 <script>
 import echarts from 'echarts'
-import api from '@/api/statistics/api'
+import api from '@/api/goods/goods'
 export default {
  
 
@@ -24,8 +26,8 @@ export default {
       dateRange: this.$parent.dateRange,
       curDate: this.$parent.curDate,
       showNum:7,
-      xData:[7,14,16],
-      yData:['花王婴儿纸尿裤','欧莱雅面膜' ,'农家新语奶油草莓' ],
+      xData:[],
+      yData:[],
       max:1000,
       min:1
     }
@@ -48,8 +50,7 @@ export default {
     init() {
       this.getParent()
       this.setChartData()
-      api.getTmRepeat(this.recentDays,this.showNum,this.curDate).then(response => {
- 
+      api.getTmRepeat(this.recentDays,this.curDate,this.showNum).then(response => {
           this.xData = response.xData
           this.yData = response.yData
           this.initData(this.xData ) 

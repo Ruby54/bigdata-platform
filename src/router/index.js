@@ -81,35 +81,41 @@ export const constantRouterMap = [
     meta: { title: '统计管理', icon: 'table' },
     alwaysShow: true,
     children: [
-      {
-        path: 'echarts/rt',
-        name: '实时统计',
-        component: () => import('@/views/statistics/echarts/rt'),
-        meta: { title: '实时统计' }
-      },
-      {
-        path: 'echarts/orderAnalysis',
-        name: '交易分析',
-        component: () => import('@/views/statistics/echarts/orderAnalysis'),
-        meta: { title: '交易分析' }
-      } ,
+      // {
+      //   path: 'echarts/rt',
+      //   name: '实时统计',
+      //   component: () => import('@/views/statistics/echarts/rt'),
+      //   meta: { title: '实时统计' }
+      // },
+      // {
+      //   path: 'echarts/orderAnalysis',
+      //   name: '交易分析',
+      //   component: () => import('@/views/statistics/echarts/orderAnalysis'),
+      //   meta: { title: '交易分析' }
+      // } ,
       // {
       //   path: 'echarts/index',
       //   name: 'echarts统计',
       //   component: () => import('@/views/statistics/echarts/index'),
       //   meta: { title: 'echarts统计' }
       // },
+      // {
+      //   path: 'echarts/visit',
+      //   name: '流量统计',
+      //   component: () => import('@/views/statistics/echarts/visit'),
+      //   meta: { title: '访问流量统计' }
+      // },
+      // {
+      //   path: 'echarts/user',
+      //   name: '会员统计',
+      //   component: () => import('@/views/statistics/echarts/user/user'),
+      //   meta: { title: '会员统计' }
+      // },
       {
-        path: 'echarts/visit',
-        name: '流量统计',
-        component: () => import('@/views/statistics/echarts/visit'),
-        meta: { title: '访问流量统计' }
-      },
-      {
-        path: 'echarts/user',
-        name: '会员统计',
-        component: () => import('@/views/statistics/echarts/user/user'),
-        meta: { title: '会员统计' }
+        path: 'echarts/goods',
+        name: '商品分析',
+        component: () => import('@/views/statistics/echarts/goods/goods'),
+        meta: { title: '商品分析' }
       },
       {
         path: 'echarts/order',
@@ -128,13 +134,13 @@ export const constantRouterMap = [
         name: '优惠券分析',
         component: () => import('@/views/statistics/echarts/activity/couponTable'),
         meta: { title: '优惠券分析' }
-      },
-      {
-        path: 'echarts/orderuser',
-        name: '统计',
-        component: () => import('@/views/statistics/echarts/orderuser'),
-        meta: { title: '统计' }
       }
+      // {
+      //   path: 'echarts/orderuser',
+      //   name: '统计',
+      //   component: () => import('@/views/statistics/echarts/orderuser'),
+      //   meta: { title: '统计' }
+      // }
     ]
   },
   {
