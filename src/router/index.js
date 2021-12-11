@@ -99,18 +99,18 @@ export const constantRouterMap = [
       //   component: () => import('@/views/statistics/echarts/index'),
       //   meta: { title: 'echarts统计' }
       // },
-      // {
-      //   path: 'echarts/visit',
-      //   name: '流量统计',
-      //   component: () => import('@/views/statistics/echarts/visit'),
-      //   meta: { title: '访问流量统计' }
-      // },
-      // {
-      //   path: 'echarts/user',
-      //   name: '会员统计',
-      //   component: () => import('@/views/statistics/echarts/user/user'),
-      //   meta: { title: '会员统计' }
-      // },
+      {
+        path: 'echarts/visit',
+        name: '流量统计',
+        component: () => import('@/views/statistics/echarts/visit/visit'),
+        meta: { title: '访问流量统计' }
+      },
+      {
+        path: 'echarts/user',
+        name: '会员统计',
+        component: () => import('@/views/statistics/echarts/user/user'),
+        meta: { title: '会员统计' }
+      },
       {
         path: 'echarts/goods',
         name: '商品分析',

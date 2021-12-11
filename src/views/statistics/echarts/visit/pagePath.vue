@@ -1,12 +1,16 @@
 <template>
+  <el-row :gutter="24" class="el-row">
+    <el-col :span="24" class="el-card">
   <div>
     <div id="pagePathChart" style="width:100%;height:280px;" />
   </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
 import echarts from 'echarts'
-import api from '@/api/statistics/api'
+import api from '@/api/visit/visit'
 export default {
 
   // 生命周期函数：内存准备完毕，页面尚未渲染
@@ -22,54 +26,23 @@ export default {
 
   data () {
     return {
-      curDate:this.$parent.$parent.$parent.curDate,
-      recentDays:this.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.dateRange,
-      nodeData:[{ name: 'a' }, 
-         { name: 'b' },
-         { name: 'a1' },
-         { name: 'a2' }, 
-         { name: 'b1' }, 
-         { name: 'c' }],
-      linksData:[{
-            source: 'a',
-            target: 'a1',
-            value: 5
-        }, {
-            source: 'a',
-            target: 'a2',
-            value: 3
-        }, {
-            source: 'b',
-            target: 'b1',
-            value: 8
-        }, {
-            source: 'a',
-            target: 'b1',
-            value: 3
-        }, {
-            source: 'b1',
-            target: 'a1',
-            value: 1
-        }, {
-            source: 'b1',
-            target: 'c',
-            value: 2
-        }]
+      recentDays:this.$parent.recentDays,
+      dateRange: this.$parent.dateRange,
+      curDate:this.$parent.curDate,
+      nodeData:[]
     }
   },
 
   methods: {
 
      getParent(){
-        this.curDate=this.$parent.$parent.$parent.curDate,
-       this.recentDays=this.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.dateRange 
-    },
+       this.curDate=this.$parent.curDate,
+         this.recentDays=this.$parent.recentDays,
+         this.dateRange=this.$parent.dateRange
+     },
     init() {
       this.getParent()
       api.getPagePathData(this.recentDays,this.curDate).then(response => {
- 
         this.nodeData = response.nodeData
         this.linksData = response.linksData
  

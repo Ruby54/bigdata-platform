@@ -1,15 +1,15 @@
 <template>
- 
- 
+    <el-row :gutter="24" class="el-row">
+      <el-col :span="24" class="el-card">
       <div id="userConversionChart" style="width:100%;height:500px;" />
- 
- 
+      </el-col>
+    </el-row>
 </template>
 
 
 <script>
 import echarts from 'echarts'
-import api from '@/api/statistics/api'
+import api from '@/api/user/user'
 export default {
 
   // 生命周期函数：内存准备完毕，页面尚未渲染
@@ -25,16 +25,16 @@ export default {
 
   data () {
     return {
-      recentDays:this.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.dateRange,
-      curDate:this.$parent.$parent.$parent.curDate,
-      xData:['首页', '商品详情','加购物车' ,'订单','支付' ],
+      recentDays:this.$parent.recentDays,
+      dateRange: this.$parent.dateRange,
+      curDate:this.$parent.curDate,
+      xData:[ ],
       yData:[
-                {value: 200, name: '首页'},
-                {value: 470, name: '商品详情'},
-                {value: 60, name: '加购物车'},
-                {value: 43, name: '订单'},
-                {value: 33, name: '支付'} 
+                // {value: 200, name: '首页'},
+                // {value: 470, name: '商品详情'},
+                // {value: 60, name: '加购物车'},
+                // {value: 43, name: '订单'},
+                // {value: 33, name: '支付'}
  
             ]
     }
@@ -42,13 +42,13 @@ export default {
 
   methods: {
      getParent(){
-        this.curDate=this.$parent.$parent.$parent.curDate,
-       this.recentDays=this.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.dateRange 
+        this.curDate=this.$parent.curDate,
+       this.recentDays=this.$parent.recentDays,
+       this.dateRange=this.$parent.dateRange
     },
     init() {
       this.getParent()
-      api.getUserActionConvertData(this.recentDays,this.curDate).then(response => {
+      api.getUserActionConvert(this.recentDays,this.curDate).then(response => {
        console.log(response.xData) 
        console.log(response.yData) 
         this.xData = response.xData

@@ -11,9 +11,9 @@
       </el-col>
       <el-col :span="4" class="el-card">
         <div class="grid-content bg-purple">
-          <div style="font-size:18px;color:grey ">累计消费用户数  </div>
+          <div style="font-size:18px;color:grey ">活跃用户数  </div>
           <br>
-          <div style="font-size:40px;text-align:center" >  {{orderUserTotal}}<span style="font-size:20px">人</span></div> 
+          <div style="font-size:40px;text-align:center" >  {{activeUserTotal}}<span style="font-size:20px">人</span></div>
         </div>
         
       </el-col>
@@ -31,13 +31,13 @@
           <div style="font-size:40px;text-align:center" > {{newOrderUserCount}}<span style="font-size:20px">人</span></div> 
         </div>
       </el-col>
-       <el-col :span="4" class="el-card">
-        <div class="grid-content bg-purple">
-          <div style="font-size:18px;color:grey ">{{dateRange}}客单价  </div>
-          <br>
-          <div style="font-size:40px;text-align:center" > {{pct }}<span style="font-size:20px">元</span></div> 
-        </div>
-      </el-col>
+       <!--<el-col :span="4" class="el-card">-->
+        <!--<div class="grid-content bg-purple">-->
+          <!--<div style="font-size:18px;color:grey ">{{dateRange}}客单价  </div>-->
+          <!--<br>-->
+          <!--<div style="font-size:40px;text-align:center" > {{pct }}<span style="font-size:20px">元</span></div> -->
+        <!--</div>-->
+      <!--</el-col>-->
        <el-col :span="4" class="el-card">
         <div class="grid-content bg-purple">
           <div style="font-size:18px;color:grey ">{{dateRange}}用户流失数  </div>
@@ -45,6 +45,13 @@
           <div style="font-size:40px;text-align:center" > {{userChurn}}<span style="font-size:20px">人</span></div> 
         </div>
       </el-col>
+     <el-col :span="4" class="el-card">
+       <div class="grid-content bg-purple">
+         <div style="font-size:18px;color:grey ">{{dateRange}}用户回流数  </div>
+         <br>
+         <div style="font-size:40px;text-align:center" > {{userBack}}<span style="font-size:20px">人</span></div>
+       </div>
+     </el-col>
    </el-row>
    
 
@@ -53,18 +60,19 @@
 
 
 <script>
-import api from '@/api/statistics/api'
+import api from '@/api/user/user'
 export default {
   data() {
     return {
        recentDays:this.$parent.recentDays,
        dateRange: this.$parent.dateRange,
        curDate:this.$parent.curDate,
-       userTotal:123123,
-       orderUserTotal:4343,
-       newUserCount:4341,
-       newOrderUserCount:1234,
-       pct :991.00
+       userTotal:0,
+      activeUserTotal:0,
+       newUserCount:0,
+       newOrderUserCount:0,
+      userChurn:0,
+      userBack:0
     }
   },
  
@@ -81,15 +89,15 @@ export default {
     init() {
       
        this.getParent() 
-      api.getUserTotalData(this.recentDays, this.curDate).then(response => {
+      api.getUserTotal( this.curDate,this.recentDays).then(response => {
       // console.log(" res:"+response)
         this.userTotal = response.userTotal
-        this.orderUserTotal = response.orderUserTotal
+        this.activeUserTotal = response.activeUserTotal
+        // this.orderUserTotal = response.orderUserTotal
         this.newUserCount = response.newUserCount
         this.newOrderUserCount = response.newOrderUserCount
-        this.pct = response.pct
         this.userChurn=response.userChurn
- 
+        this.userBack=response.userBack
       }).catch( response => {
           console.log('失败'+response)
           // Vue.$message.error('服务器错误，请稍后再试')

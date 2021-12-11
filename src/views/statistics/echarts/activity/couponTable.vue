@@ -38,7 +38,7 @@
           </el-table-column>
           <el-table-column
             prop="rule_name"
-            label="优惠规则"   width="160" >
+            label="优惠规则"   width="500" >
           </el-table-column>
           <el-table-column
             prop="reduce_rate"

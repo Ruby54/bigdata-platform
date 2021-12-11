@@ -1,4 +1,6 @@
 <template>
+  <el-row :gutter="24" class="el-row">
+    <el-col :span="24" class="el-card">
   <div>
         <el-row :gutter="24" class="el-row">
          <span style="font-size:20px; font-weight: bold"> 留存率</span>
@@ -50,17 +52,19 @@
     </el-table>
     </el-row>
   </div>
+    </el-col>
+  </el-row>
 </template>
 
 
 <script>
-import api from '@/api/statistics/api'
+import api from '@/api/user/user'
 export default {
   data() {
     return {
-      curDate:this.$parent.$parent.$parent.curDate,
-      recentDays:this.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.dateRange,
+      curDate:this.$parent.curDate,
+      recentDays:this.$parent.recentDays,
+      dateRange: this.$parent.dateRange,
       tableData: [{
         create_date: '2021-03-06',
         new_user_count: 310,
@@ -89,9 +93,9 @@ export default {
      },
 
      getParent(){
-       this.recentDays=this.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.dateRange,
-       this.curDate=this.$parent.$parent.$parent.curDate 
+       this.recentDays=this.$parent.recentDays,
+       this.dateRange=this.$parent.dateRange,
+       this.curDate=this.$parent.curDate
     },
  
     init() {

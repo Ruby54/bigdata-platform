@@ -59,6 +59,7 @@
 
       init() {
         this.getParent()
+        this.setChartData()
         this.orderSelect=this.orderSelect
         console.log("super days:"+ this.recentDays);
         api.getOrderProvinceData(this.recentDays,this.curDate,this.orderSelect).then(response => {
@@ -66,7 +67,7 @@
             this.areaData = response.result
           }
           this.initData(this.areaData )
-          console.log("area:"+response)
+          // console.log("area:"+response)
           this.setChartData();
 
         }).catch( response => {
