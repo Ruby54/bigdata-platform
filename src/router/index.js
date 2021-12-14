@@ -124,6 +124,12 @@ export const constantRouterMap = [
         meta: { title: '订单统计' }
       },
       {
+        path: 'echarts/user',
+        name: '用户统计',
+        component: () => import('@/views/statistics/echarts/user/user'),
+        meta: { title: '用户统计' }
+      },
+      {
         path: 'echarts/activityTable',
         name: '活动分析',
         component: () => import('@/views/statistics/echarts/activity/activityTable'),

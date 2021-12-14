@@ -14,7 +14,6 @@
           <br>
           <div style="font-size:40px;text-align:center" >  {{orderAmount}}<span style="font-size:20px">元</span></div>
         </div>
-
       </el-col>
       <el-col :span="8" class="el-card">
         <div class="grid-content bg-purple">
@@ -37,17 +36,13 @@
          <div style="font-size:40px;text-align:center" >{{orderRefundUserCount}}<span style="font-size:20px">人</span></div>
        </div>
      </el-col>
-
    </el-row>
-
-
   </div>
 </template>
 
 
 <script>
 import api from '@/api/order/order'
-
 export default {
   data() {
     return {
@@ -59,7 +54,6 @@ export default {
        orderUser:0,
        orderRefundCount:0,
        orderRefundUserCount:0
-
     }
   },
 
@@ -72,7 +66,6 @@ export default {
        this.dateRange=this.$parent.dateRange ,
        this.curDate=this.$parent.curDate
     },
-
     // 加载banner列表数据
     init() {
       this.getParent()
@@ -90,8 +83,6 @@ export default {
           //reject(response)
         })
     }
-
-
 }
 }
 </script>

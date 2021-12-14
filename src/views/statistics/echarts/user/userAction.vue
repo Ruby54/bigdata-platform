@@ -1,135 +1,113 @@
 <template>
- 
- 
-      <div id="userConversionChart" style="width:100%;height:500px;" />
- 
- 
+  <el-row :gutter="24" class="el-row">
+    <el-col :span="24" class="el-card">
+      <div align="center" style="width:100%;height:400px" ref="categoryChart">
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
-
 <script>
-import echarts from 'echarts'
-import api from '@/api/statistics/api'
-export default {
-
-  // 生命周期函数：内存准备完毕，页面尚未渲染
-  created() {
-    console.log('list created......')
-    // this.init()
-  },
-
-  // 生命周期函数：内存准备完毕，页面渲染成功
-  mounted() {
-    this.init()
-  },
-
-  data () {
-    return {
-      recentDays:this.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.dateRange,
-      curDate:this.$parent.$parent.$parent.curDate,
-      xData:['首页', '商品详情','加购物车' ,'订单','支付' ],
-      yData:[
-                {value: 200, name: '首页'},
-                {value: 470, name: '商品详情'},
-                {value: 60, name: '加购物车'},
-                {value: 43, name: '订单'},
-                {value: 33, name: '支付'} 
- 
-            ]
-    }
-  },
-
-  methods: {
-     getParent(){
-        this.curDate=this.$parent.$parent.$parent.curDate,
-       this.recentDays=this.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.dateRange 
+  import echarts from "echarts";
+  import api from "@/api/user/user";
+  var res;
+  export default {
+    data() {
+      return {
+      };
     },
-    init() {
-      this.getParent()
-      api.getUserActionConvertData(this.recentDays,this.curDate).then(response => {
-       console.log(response.xData) 
-       console.log(response.yData) 
-        this.xData = response.xData
-        this.yData = response.yData
- 
-        this.setChartData()
-      }).catch( response => {
-          console.log('失败'+response)
-          // Vue.$message.error('服务器错误，请稍后再试')
-          //reject(response)
-        })
-    },
+    methods: {
+      getParent() {
+          this.recentDays = this.$parent.recentDays,
+          this.dateRange = this.$parent.dateRange ,
+          this.curDate = this.$parent.curDate
+      },
+      init() {
+        this.getParent()
+        console.log("categoryPie:" + this.recentDays)
+        api.getUserActionByDaysAndDt(this.recentDays,this.curDate)
+          .then(response => {
+            res=response
+             this.make();
+          }).catch((response) => {
+            console.log("失败" + response)
+          })
+      },
+      make() {
+        this.chart = echarts.init(this.$refs.categoryChart);
+        const option = {
+          title: {
+            top: 20,
+            text: "( "+this.dateRange+" ) "+"用户行为漏斗分析",
+            left: "center",
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c}%"
+          },
+          toolbox: {
+            feature: {
+              dataView: {readOnly: false},
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          legend: {
+            top : 75,
+            data: ['home_count','good_detail_count','cart_count','order_count','payment_count']
+          },
 
-    setChartData() {
-    const option = {
-    title: {
-        text: '漏斗图',
-        subtext: this.dateRange
-    },
-    tooltip: {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c}%"
-    },
-    toolbox: {
-        feature: {
-            dataView: {readOnly: false},
-            restore: {},
-            saveAsImage: {}
-        }
-    },
-    legend: {
-        data: this.xData
-    },
-
-    series: [
-        {
-            name:'漏斗图',
-            type:'funnel',
-            left: '10%',
-            top: 60,
-            //x2: 80,
-            bottom: 60,
-            width: '80%',
-            // height: {totalHeight} - y - y2,
-            min: 0,
-            max: 100,
-            minSize: '0%',
-            maxSize: '100%',
-            sort: 'descending',
-            gap: 2,
-            label: {
+          series: [
+            {
+              name:'漏斗图',
+              type:'funnel',
+              top: 120,
+              left: '10%',//宽度是80% 图表居中 那就是左边10%即可！
+              bottom: 18,
+              width: '80%',
+              min: 0,
+              max: 120,
+              minSize: '0%',
+              maxSize: '100%',
+              gap: 2,
+              label: {
                 show: true,
                 position: 'inside'
-            },
-            labelLine: {
+              },
+              labelLine: {
                 length: 10,
                 lineStyle: {
-                    width: 1,
-                    type: 'solid'
+                  width: 1,
+                  type: 'solid'
                 }
-            },
-            itemStyle: {
+              },
+              itemStyle: {
                 borderColor: '#fff',
                 borderWidth: 1
-            },
-            emphasis: {
+              },
+              emphasis: {
                 label: {
-                    fontSize: 20
+                  fontSize: 20
                 }
-            },
-            data: this.yData
-        }
-    ]
-};
-      // 基于准备好的dom，初始化echarts实例
-      var myChart = echarts.init(document.getElementById('userConversionChart'))
+              },
+              data: [
+                {value: res.cart_count, name: "cart_count"},
+                {value: res.order_count, name: 'order_count'},
+                {value: res.payment_count, name: 'payment_count'},
+                {value: res.good_detail_count, name: 'good_detail_count'},
+                {value: res.home_count, name: 'home_count'}
+              ]
+            }
+          ]
+        };
+        this.chart.setOption(option);
+        window.onresize = this.chart.resize;//自适应窗口大小！！百度谷歌真是一个好东西！
+      }
+    },
+    mounted() {
+      this.init();
+    },
 
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option)
-    }
-  }
-}
+  };
 </script>
 

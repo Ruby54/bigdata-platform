@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-
 const api_name = '/admin/statistics'
 export default {
   getTradeByDaysAndDt(recentDays,curDate) {
@@ -16,6 +15,4 @@ export default {
       timeout: 10000
     })
   }
-
-
 }

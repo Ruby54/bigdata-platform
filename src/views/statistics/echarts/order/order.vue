@@ -6,7 +6,6 @@
         <el-col :span="24" class="el-card">
           <div class="grid-content bg-purple">
             <el-col :span="18">
-
               <el-radio-group v-model="dateRange" @change="radioChange()">
                 <!-- <el-radio-button label="访客数"></el-radio-button> -->
                 <el-radio-button label="昨日"></el-radio-button>
@@ -33,7 +32,6 @@
       </el-row>
     </div>
     <orderTotal ref="orderTotal"/>
-
     <orderProvince ref="orderProvince"/>
   </div>
 </template>
@@ -41,8 +39,6 @@
 <script>
 import orderProvince from '@/views/statistics/echarts/order/province'
 import orderTotal from '@/views/statistics/echarts/order/orderTotal'
-
-
 export default {
   // 注册组件
   components: {
@@ -69,8 +65,6 @@ export default {
       this.setParent();
       this.refresh();
     },
-
-
     radioChange() {
       // debugger
       if (this.dateRange == "近30日") {
@@ -86,11 +80,7 @@ export default {
     refresh(){
          this.$refs.orderProvince.init()
          this.$refs.orderTotal.init()
-
-
       }
-
-
   }
 }
 </script>

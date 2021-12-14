@@ -16,6 +16,7 @@
   "dependencies": {
     "@jiaminghi/data-view": "^2.10.0",
     "axios": "0.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "echarts": "^4.1.0",
     "element-ui": "2.12.0",
     "jquery": "^3.5.1",

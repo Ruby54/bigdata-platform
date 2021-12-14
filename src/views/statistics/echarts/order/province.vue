@@ -3,12 +3,6 @@
     <el-col :span="24" class="el-card">
        <div id="mapChart" style="width: 100%; height: 400px" />
     </el-col>
-    <!--<el-col :span="12" class="el-card">-->
-      <!--查询条件：<el-select v-model="orderSelect" placeholder="请选择" class="dialog-input">-->
-      <!--<el-option v-for="item in orderOptions" :key="item.key" :label="item.label" :value="item.value"/>-->
-    <!--</el-select>-->
-
-    <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
   </el-row>
 </template>
 
@@ -22,7 +16,6 @@
     mounted() {
       this.init();
     },
-
     data() {
       return {
         mapJson: {},
@@ -46,9 +39,8 @@
         this.curDate=this.$parent.curDate,
           this.recentDays=this.$parent.recentDays,
           this.dateRange=this.$parent.dateRange
-
       },
-      initData(areaData ){
+      initData(areaData){
         if( areaData&&areaData.length>0){
           this.min= areaData[0]['value']
           this.max= areaData[areaData.length-1]['value']
@@ -56,7 +48,6 @@
           console.log("max:"+this.max)
         }
       },
-
       init() {
         this.getParent()
         this.orderSelect=this.orderSelect
@@ -74,20 +65,14 @@
           // Vue.$message.error('服务器错误，请稍后再试')
           //reject(response)
         })
-
-
       },
       setChartData() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById("mapChart"));
-
         myChart.showLoading();
-
         axios.get("/static/china.json").then((response) => {
           this.mapJson = response.data;
-
           myChart.hideLoading();
-
           echarts.registerMap("CHN", this.mapJson);
           const option = {
             title: {

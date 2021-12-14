@@ -1,159 +1,140 @@
 <template>
+  <el-row :gutter="24" class="el-row">
+    <el-col :span="24" class="el-card">
+      <div align="center">
+        <span style="font-size:20px; font-weight: bold">留存率</span>
+      </div>
   <div>
-        <el-row :gutter="24" class="el-row">
-         <span style="font-size:20px; font-weight: bold"> 留存率</span>
-        </el-row>
-    <el-row :gutter="24" class="el-row">
-    <el-table   border
-      :data="tableData"
-      style="width: 100%;font-size: 15px"
-      :header-cell-style="{background:'#eef1f6',color:'#606266'}"  
-      :cell-style="getCellClass">
-      <el-table-column
-        prop="create_date"
-        label="用户新增时间"
-        width="300">
-      </el-table-column> 
-      <el-table-column
-        prop="new_user_count"
-        label="新增用户"
-        width="230"  >
+    <!--<el-row :gutter="24" class="el-row">-->
+      <!--<span style="font-weight: bold">留存率</span>-->
+    <!--</el-row>-->
+    <el-table :data="tableData" style="width: 100%" :header-cell-style="{background:'#eef1f6',color:'#606266','text-align':'center'}">
+      <el-table-column prop="date" label="时间" align="center"></el-table-column>
+      <el-table-column prop="new_user_count" label="新增用户" align="center" border></el-table-column>
+      <el-table-column prop="day1" label="一天后" align="center" >
+        <template slot-scope="scope">
+          <div    v-if="parseFloat(scope.row.day1) >0" style="background: #E6F7FF;color: black;position: absolute;top: 0;left: 0;
+    height: 100%;width: 100%;">{{scope.row.day1+" %"}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="day2" label="两天后" align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day2) >0" style="background: #E6F7FF;color: black;position: absolute;
+    top: 0;left: 0;height: 100%;width: 100%;">{{scope.row.day2+" %"}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="day3" label="三天后"align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day3) >0" style="background: #E6F7FF;color: black;position: absolute;top: 0;left: 0;height: 100%;
+    width: 100%;">{{scope.row.day3+" %"}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="day4" label="四天后"align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day4) >0" style="background: #E6F7FF;color: black;
+          position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;">{{scope.row.day4+" %"}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="day5" label="五天后"align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day5) >0" style="background: #E6F7FF;color: black;
+          position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;">{{scope.row.day5+" %"}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="day6" label="六天后"align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day6) >0" style="background: #E6F7FF;color: black;position: absolute;
+    top: 0;left: 0;height: 100%;width: 100%;">{{scope.row.day6+" %"}}
+          </div>
+        </template>
       </el-table-column>
       <el-table-column
-        prop="retention_rate_d1"
-        label="1天后"  :formatter="formatRate1" >
-      </el-table-column>
-      <el-table-column
-        prop="retention_rate_d2"
-        label="2天后"    :formatter="formatRate2">
-      </el-table-column>
-      <el-table-column
-        prop="retention_rate_d3"
-        label="3天后"    :formatter="formatRate3">
-      </el-table-column>
-      <el-table-column
-        prop="retention_rate_d4"
-        label="4天后"   :formatter="formatRate4" >
-      </el-table-column>
-      <el-table-column
-        prop="retention_rate_d5"
-        label="5天后"    :formatter="formatRate5">
-      </el-table-column>
-     <el-table-column
-        prop="retention_rate_d6"
-        label="6天后"    :formatter="formatRate6">
-      </el-table-column>
-      <el-table-column
-        prop="retention_rate_d7"
-        label="7天后"   :formatter="formatRate7" >
+        prop="day7"
+        label="七天后"align="center">
+        <template slot-scope="scope">
+          <div  v-if="parseFloat(scope.row.day7) >0" style="background: #E6F7FF;color: black;
+          position: absolute;align: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;">{{scope.row.day7+" %"}}
+          </div>
+        </template>
       </el-table-column>
     </el-table>
-    </el-row>
   </div>
+    </el-col>
+  </el-row>
 </template>
+<style>
+  .el-table .warning-row {
+    background: oldlace;
+  }
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+  .el-table__row>td{
+    /* 去除表格线 */
+    border: none;
+  }
+  .verticalAlign {
 
+  display: table-cell;
+  vertical-align: middle; }
 
+</style>
 <script>
-import api from '@/api/statistics/api'
-export default {
-  data() {
-    return {
-      curDate:this.$parent.$parent.$parent.curDate,
-      recentDays:this.$parent.$parent.$parent.recentDays,
-      dateRange: this.$parent.$parent.$parent.dateRange,
-      tableData: [{
-        create_date: '2021-03-06',
-        new_user_count: 310,
-        retention_rate_d1: 10.1,
-        retention_rate_d2: 10.1,
-        retention_rate_d3: 10.5,
-        retention_rate_d4: 4.1,
-        retention_rate_d5: 14.0,
-        retention_rate_d6: 3.1,
-        retention_rate_d7: 6.1
-      } ]
-    }
-  },
- 
-   mounted() {
-    this.init()
-  } ,
-   methods: {
-
-     getCellClass({row, column, rowIndex, columnIndex}){
-       
-       
-        if(rowIndex>=0&&rowIndex<=6&&columnIndex>=2&&columnIndex <=8-rowIndex ){
-          return  {background:'#66B3FF',color:'#ffffff'} 
-        }
-     },
-
-     getParent(){
-       this.recentDays=this.$parent.$parent.$parent.recentDays,
-       this.dateRange=this.$parent.$parent.$parent.dateRange,
-       this.curDate=this.$parent.$parent.$parent.curDate 
+  import api from "@/api/user/user";
+  export default {
+    data() {
+      return {
+        tableData: []
+      }
     },
- 
-    init() {
-      this.getParent()
-      api.getUserRetention( this.curDate).then(response => {
-       console.log("retention:"+response)
-        this.tableData = response
- 
-      }).catch( response => {
-          console.log('失败'+response)
-          // Vue.$message.error('服务器错误，请稍后再试')
-          //reject(response)
-        })
+    mounted() {
+      this.init()
     } ,
-     formatRate1(row,col,value,rowindex){ 
-           return parseFloat(value).toFixed(2) +"%"
-     } ,
-      formatRate2(row,col,value,rowindex){ 
-           if(rowindex<6){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-      formatRate3(row,col,value,rowindex){ 
-           if(rowindex<5){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-      formatRate4(row,col,value,rowindex){ 
-           if(rowindex<4){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-     formatRate5(row,col,value,rowindex){ 
-           if(rowindex<3){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-     formatRate6(row,col,value,rowindex){ 
-           if(rowindex<2){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-      formatRate7(row,col,value,rowindex){ 
-           if(rowindex<1){
-              return parseFloat(value).toFixed(2) +"%"
-           }else{
-             return ''
-           }  
-     } ,
-
- 
-}
-}
+    methods: {
+      getParent(){
+        this.recentDays=this.$parent.recentDays,
+        this.dateRange=this.$parent.dateRange ,
+        this.curDate=this.$parent.curDate
+      },
+      init() {
+        this.getParent()
+        api.getUserRetentionByDt(this.curDate).then(response => {
+          this.tableData=[]//清空表格数据 重新加载
+          for(let key in response){
+            this.tableData.push(
+              { date: key,
+                new_user_count: response[key][0],
+                day1: response[key][1],
+                day2: response[key][2],
+                day3: response[key][3],
+                day4: response[key][4],
+                day5: response[key][5],
+                day6: response[key][6],
+                day7: response[key][7]}
+            )
+          }
+        //队获得数据进行处理
+        }).catch( response => {
+          console.log('失败'+response)
+        })
+      }
+    }
+  }
 </script>
-
