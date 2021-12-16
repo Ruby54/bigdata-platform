@@ -1,5 +1,8 @@
 <template  >
   <div>
+    <span slot="title_slot" >
+         各渠道流量统计
+        </span>
 
     <el-table
       height="250"
@@ -38,14 +41,18 @@
         label="跳出率" width="150" >
       </el-table-column>
     </el-table>
-    <el-pagination
-      :page-size="pageSize"
-      :pager-count="7"
-      @current-change="handleCurrentChange"
-      :current-page.sync="curPageNo"
-      layout="total,prev, pager, next"
-      :total="total">
-    </el-pagination>
+    <div v-show="!listLoading" class="pagination-container">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="query.pageNo"
+        :page-sizes="[20,50,100]"
+        :page-size="query.pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -68,7 +75,17 @@
         pageSize:20,
         curPageNo:1,
         total:0,
-        tableData: []
+        tableData: [],
+        query: {
+          pageNo: 1,
+          pageSize: 50,
+          keyWords: "",
+          queryType: 0,
+          businessLineId: undefined,
+          mine: true,
+          includeDeleted: false,
+          online: ""
+        },
       }
     },
     methods:{
@@ -83,7 +100,7 @@
         api.getTrafficStats(this.recentDays,this.curDate)
           .then((response) => {
             console.log("--------------------------------"+response)
-            this.tableData = response.result
+            this.tableData = response
             // this.total=response.total
 
           })

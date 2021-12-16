@@ -38,42 +38,42 @@ export const constantRouterMap = [
     }]
   },
 
-  {
-    path: '/userportrait',
-    component: Layout,
-    redirect: 'noredirect',
-    meta: { title: '用户画像管理', icon: 'table' },
-    alwaysShow: true,
-    children: [
-
-      {
-        path: 'userProfile/tag',
-        name: '标签管理',
-        component: () => import('@/views/userProfile/tag/tagList'),
-        meta: { title: '标签管理' }
-      },
-      {
-        path: 'userProfile/flowTaskList',
-        name: '流程任务管理',
-        component: () => import('@/views/userProfile/tag/flowTaskList'),
-        meta: { title: '流程任务管理' }
-
-      },
-      {
-        path: 'userProfile/taskProcessList',
-        name: '任务监控',
-        component: () => import('@/views/userProfile/tag/taskProcessList'),
-        meta: { title: '任务进程' }
-      },
-      {
-        path: 'userProfile/userGroup',
-        name: '用户分群',
-        component: () => import('@/views/userProfile/tag/userGroupList'),
-        meta: { title: '用户分群' }
-
-      }
-    ]
-  },
+  // {
+  //   path: '/userportrait',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   meta: { title: '用户画像管理', icon: 'table' },
+  //   alwaysShow: true,
+  //   children: [
+  //
+  //     {
+  //       path: 'userProfile/tag',
+  //       name: '标签管理',
+  //       component: () => import('@/views/userProfile/tag/tagList'),
+  //       meta: { title: '标签管理' }
+  //     },
+  //     {
+  //       path: 'userProfile/flowTaskList',
+  //       name: '流程任务管理',
+  //       component: () => import('@/views/userProfile/tag/flowTaskList'),
+  //       meta: { title: '流程任务管理' }
+  //
+  //     },
+  //     {
+  //       path: 'userProfile/taskProcessList',
+  //       name: '任务监控',
+  //       component: () => import('@/views/userProfile/tag/taskProcessList'),
+  //       meta: { title: '任务进程' }
+  //     },
+  //     {
+  //       path: 'userProfile/userGroup',
+  //       name: '用户分群',
+  //       component: () => import('@/views/userProfile/tag/userGroupList'),
+  //       meta: { title: '用户分群' }
+  //
+  //     }
+  //   ]
+  // },
   {
     path: '/statistics',
     component: Layout,
@@ -128,7 +128,8 @@ export const constantRouterMap = [
         name: '活动分析',
         component: () => import('@/views/statistics/echarts/activity/activityTable'),
         meta: { title: '活动分析' }
-      },
+      }
+      ,
       {
         path: 'echarts/couponTable',
         name: '优惠券分析',
@@ -143,21 +144,21 @@ export const constantRouterMap = [
       // }
     ]
   },
-  {
-    path: '/report',
-    component: Layout,
-    redirect: 'noredirect',
-    meta: { title: '报表管理', icon: 'table' },
-    alwaysShow: true,
-    children: [
-      {
-        path: 'report/customQuery',
-        name: '报表管理',
-        component: () => import('@/views/report/customQuery'),
-        meta: { title: '报表管理' }
-      }
-    ]
-  },
+  // {
+  //   path: '/report',
+  //   component: Layout,
+  //   redirect: 'noredirect',
+  //   meta: { title: '报表管理', icon: 'table' },
+  //   alwaysShow: true,
+  //   children: [
+  //     {
+  //       path: 'report/customQuery',
+  //       name: '报表管理',
+  //       component: () => import('@/views/report/customQuery'),
+  //       meta: { title: '报表管理' }
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

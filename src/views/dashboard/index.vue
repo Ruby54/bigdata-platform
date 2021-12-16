@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">欢迎登录用户画像管理平台</div>
+    <div class="dashboard-text">欢迎登录九章云台离线报表系统</div>
   </div>
 </template>
 

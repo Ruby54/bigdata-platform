@@ -139,17 +139,14 @@ export default {
      },
      getActivityList(){
        api.getActivityList(this.query).then(response => {
-         console.log("-----"+response.result)
-         if (response.status === 200) {
-           this.listLoading = true
-           this.list = response.result
-           this.listLoading = false
-         }
+         console.log("-----"+response)
+         this.listLoading = true
+         this.list = response
+         this.listLoading = false
 
        })
      }
 }
-
 }
 </script>
 

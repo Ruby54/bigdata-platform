@@ -3,12 +3,6 @@
     <el-col :span="24" class="el-card">
        <div id="mapChart" style="width: 100%; height: 400px" />
     </el-col>
-    <!--<el-col :span="12" class="el-card">-->
-      <!--查询条件：<el-select v-model="orderSelect" placeholder="请选择" class="dialog-input">-->
-      <!--<el-option v-for="item in orderOptions" :key="item.key" :label="item.label" :value="item.value"/>-->
-    <!--</el-select>-->
-
-    <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
   </el-row>
 </template>
 
@@ -63,8 +57,8 @@
         this.orderSelect=this.orderSelect
         console.log("super days:"+ this.recentDays);
         api.getOrderProvinceData(this.recentDays,this.curDate,this.orderSelect).then(response => {
-          if(response.result.length>0){
-            this.areaData = response.result
+          if(response.length>0){
+            this.areaData = response
           }
           this.initData(this.areaData )
           // console.log("area:"+response)

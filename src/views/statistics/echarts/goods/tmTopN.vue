@@ -66,22 +66,22 @@ export default {
     //一级分类
     getCategory1() {
       api.getCategory1(this.curDate).then(response => {
-        console.log("----------------"+response.result)
-        this.category1Options = response.result;
+        console.log("----------------"+response)
+        this.category1Options = response;
       })
     },
     //二级分类
     getCategory2() {
       console.log(this.category1)
       api.getCategory2(this.curDate,this.category1).then(response => {
-        this.category2Options = response.result;
+        this.category2Options = response;
       })
     },
     //三级级分类
     getCategory3() {
       this.countyItem = [];
       api.getCategory3(this.curDate,this.category1,this.category2).then(response => {
-        this.category3Options = response.result;
+        this.category3Options = response;
       })
     },
     getTmTopNData(){

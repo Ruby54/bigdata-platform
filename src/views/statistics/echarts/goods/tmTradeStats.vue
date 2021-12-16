@@ -79,9 +79,9 @@
         this.getParent()
         api.getTmTradeStats(this.recentDays,this.curDate)
           .then((response) => {
-            this.tableData = response.result
-            // this.total=response.total
-
+            console.log("%%%%%%"+response)
+            this.tableData = response
+            this.total=response.total
           })
           .catch((response) => {
             console.log("失败" + response)

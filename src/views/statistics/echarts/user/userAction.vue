@@ -65,7 +65,7 @@ export default {
     setChartData() {
     const option = {
     title: {
-        text: '漏斗图',
+        text: '用户行为漏斗分析',
         subtext: this.dateRange
     },
     tooltip: {

@@ -66,15 +66,6 @@ export default {
       recentDays:this.$parent.recentDays,
       dateRange: this.$parent.dateRange,
       tableData: [{
-        create_date: '2021-03-06',
-        new_user_count: 310,
-        retention_rate_d1: 10.1,
-        retention_rate_d2: 10.1,
-        retention_rate_d3: 10.5,
-        retention_rate_d4: 4.1,
-        retention_rate_d5: 14.0,
-        retention_rate_d6: 3.1,
-        retention_rate_d7: 6.1
       } ]
     }
   },

@@ -38,7 +38,7 @@ export default {
       this.getParent()
       this.setChartData()
       api.getCateTradeStats(this.recentDays,this.curDate).then((response) => {
-        this.cData = response.result;
+        this.cData = response;
         this.setChartData();
         })
         .catch((response) => {
