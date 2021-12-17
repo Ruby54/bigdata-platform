@@ -77,13 +77,12 @@ export default {
     init() {
       this.getParent()
       api.getTradeByDaysAndDt(this.recentDays,this.curDate).then(response => {
-       if(response.status == 200&&response.result!=null){
-            this.orderCount = response.result.order_count
-            this.orderAmount = response.result.order_total_amount
-            this.orderUser = response.result.order_user_count
-            this.orderRefundCount = response.result.order_refund_count
-            this.orderRefundUserCount = response.result.order_refund_user_count
-         }
+        this.orderCount = response.order_count
+        this.orderAmount = response.order_total_amount
+        this.orderUser = response.order_user_count
+        this.orderRefundCount = response.order_refund_count
+        this.orderRefundUserCount = response.order_refund_user_count
+
       }).catch( response => {
           console.log('失败'+response)
           // Vue.$message.error('服务器错误，请稍后再试')
